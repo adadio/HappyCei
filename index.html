@@ -163,7 +163,6 @@
     </div>
 
     <div class="typing" id="typingArea"></div>
-    <div class="secret-message" id="secretMessage"></div>
 
     <div class="slideshow" id="slideshow">
       <!-- Slides injected by JS -->
@@ -342,28 +341,6 @@ function typeSecretMessage() {
             }
             type();
         }
-function launchConfetti() {
-            const duration = 3000;
-            const end = Date.now() + duration;
-
-            (function frame() {
-                confetti({
-                    particleCount: 5,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 }
-                });
-                confetti({
-                    particleCount: 5,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 }
-                });
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            })();
-        }
   
 // Pause button
 pauseBtn.addEventListener('click', ()=>{
@@ -492,6 +469,7 @@ document.addEventListener('keydown', (e)=>{
 
 </body>
 </html>
+
 
 
 
