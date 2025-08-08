@@ -155,7 +155,7 @@
 <div class="stage">
   <div class="card" id="mainCard">
     <div class="hero">
-      <div class="logo">C</div>
+      <div class="logo">Cemidis</div>
       <div>
         <h1>Untuk Cei — Happy Birthday!</h1>
         <p>Selamat hari merdeka Super Ceii 💌</p>
@@ -218,12 +218,6 @@ const TYPING_MESSAGES = [
   "Klik tombol 'Kejutan' ya untuk lihat foto-foto dan sedikit hadiah manis dari aku 😘"
 ];
 
-const secretMessages = [
-            "Sebenernya aku punya sesuatu yang mau aku bilangin...\n",
-            "Terima kasih udah hadir di hidup aku 🤍\n",
-            "Kamu itu alasan aku semangat tiap hari...\n",
-            "Dan aku sayang sama kamu lebih dari yang kamu kira 😘💖"
-];
 /* --------------------------------------------------------------- */
 
 const typingArea = document.getElementById('typingArea');
@@ -231,7 +225,6 @@ const slideshow = document.getElementById('slideshow');
 const captionArea = document.getElementById('captionArea');
 const pauseBtn = document.getElementById('pauseBtn');
 const surpriseBtn = document.getElementById('surpriseBtn');
-const secretMessage = document.getElementById('secretMessage');
 const endingArea = document.getElementById('endingArea');
 const loveGlow = document.getElementById('loveGlow');
 const bgMusic = document.getElementById('bgMusic');
@@ -322,26 +315,7 @@ function stopSlideshow(){
   playing = false;
   pauseBtn.textContent = 'Resume Slideshow';
 }
-function typeSecretMessage() {
-            let sIndex = 0, cIndex = 0;
-            secretMessage.style.display = 'block';
-            function type() {
-                if (cIndex < secretMessages[sIndex].length) {
-                    secretMessage.textContent += secretMessages[sIndex].charAt(cIndex);
-                    cIndex++;
-                    setTimeout(type, 50);
-                } else {
-                    sIndex++;
-                    if (sIndex < secretMessages.length) {
-                        secretMessage.textContent += "\n";
-                        cIndex = 0;
-                        setTimeout(type, 300);
-                    }
-                }
-            }
-            type();
-        }
-  
+
 // Pause button
 pauseBtn.addEventListener('click', ()=>{
   if(playing) stopSlideshow(); else startSlideshow();
@@ -469,6 +443,7 @@ document.addEventListener('keydown', (e)=>{
 
 </body>
 </html>
+
 
 
 
