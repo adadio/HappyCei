@@ -217,6 +217,13 @@ const TYPING_MESSAGES = [
   "Happy Birthday, ceii. Semoga semua harapanmu terwujud ✨\n",
   "Klik tombol 'Kejutan' ya untuk lihat foto-foto dan sedikit hadiah manis dari aku 😘"
 ];
+
+const secretMessages = [
+            "Sebenernya aku punya sesuatu yang mau aku bilangin...\n",
+            "Terima kasih udah hadir di hidup aku 🤍\n",
+            "Kamu itu alasan aku semangat tiap hari...\n",
+            "Dan aku sayang sama kamu lebih dari yang kamu kira 😘💖"
+];
 /* --------------------------------------------------------------- */
 
 const typingArea = document.getElementById('typingArea');
@@ -224,6 +231,7 @@ const slideshow = document.getElementById('slideshow');
 const captionArea = document.getElementById('captionArea');
 const pauseBtn = document.getElementById('pauseBtn');
 const surpriseBtn = document.getElementById('surpriseBtn');
+const secretMessage = document.getElementById('secretMessage');
 const endingArea = document.getElementById('endingArea');
 const loveGlow = document.getElementById('loveGlow');
 const bgMusic = document.getElementById('bgMusic');
@@ -314,17 +322,40 @@ function stopSlideshow(){
   playing = false;
   pauseBtn.textContent = 'Resume Slideshow';
 }
+function typeSecretMessage() {
+            let sIndex = 0, cIndex = 0;
+            secretMessage.style.display = 'block';
+            function type() {
+                if (cIndex < secretMessages[sIndex].length) {
+                    secretMessage.textContent += secretMessages[sIndex].charAt(cIndex);
+                    cIndex++;
+                    setTimeout(type, 50);
+                } else {
+                    sIndex++;
+                    if (sIndex < secretMessages.length) {
+                        secretMessage.textContent += "\n";
+                        cIndex = 0;
+                        setTimeout(type, 300);
+                    }
+                }
+            }
+            type();
+        }
 
+  
 // Pause button
 pauseBtn.addEventListener('click', ()=>{
   if(playing) stopSlideshow(); else startSlideshow();
 });
 
 // Surprise button — triggers confetti, music, photo sequence, ending glow
-surpriseBtn.addEventListener('click', async ()=>{
-  surpriseBtn.disabled = true;
+   surpriseBtn.addEventListener('click', () => {
+            music.play().catch(()=>{});
+            launchConfetti();
+            typeSecretMessage();
+            surpriseBtn.style.display = 'none';
   // play music (may be blocked by browser until user interacts) - but here user clicked
-  try{ await bgMusic.play(); }catch(e){ /* ignore */ }
+  try{ await bgMusic.play(); }catch(e){ /* ignore */ });
 
   // big confetti
   burstConfettiBig();
@@ -439,6 +470,7 @@ document.addEventListener('keydown', (e)=>{
 
 </body>
 </html>
+
 
 
 
