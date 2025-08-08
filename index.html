@@ -171,7 +171,8 @@
 
     <div class="controls">
       <button class="btn" id="pauseBtn">Pause Slideshow</button>
-      <button class="btn strong" id="surpriseBtn">Klik Untuk Kejutan 🎉</button>
+      <button class="btn strong" id="surpriseBtn">Klik Untuk Kejutan 🎉
+      <div class="secret-message" id="secretMessage"></div></button>
     </div>
 
     <div class="ending" id="endingArea">
@@ -341,7 +342,28 @@ function typeSecretMessage() {
             }
             type();
         }
+function launchConfetti() {
+            const duration = 3000;
+            const end = Date.now() + duration;
 
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
   
 // Pause button
 pauseBtn.addEventListener('click', ()=>{
@@ -470,6 +492,7 @@ document.addEventListener('keydown', (e)=>{
 
 </body>
 </html>
+
 
 
 
