@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Untuk Cei — Happy Birthday 💖</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg1:#ff9a9e; --bg2:#fecfef; --accent:#ff5e78; --soft:#fff1f4;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%; margin:0; font-family: 'Montserrat', sans-serif; -webkit-font-smoothing:antialiased}
+  body{
+    background: linear-gradient(135deg,var(--bg1),var(--bg2));
+    background-size:400% 400%;
+    animation: bgMove 12s ease infinite;
+    color:#fff; overflow:hidden;
+  }
+  @keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  /* Central cinematic card */
+  .stage{
+    position:relative;
+    width:100%;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+  }
+  .card{
+    width:min(980px,95%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border-radius:22px;
+    padding:28px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* cinematic header */
+  .hero {
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-bottom:8px;
+  }
+  .logo {
+    width:78px; height:78px; border-radius:16px;
+    background:linear-gradient(135deg,var(--accent),#ff9ad1);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Pacifico'; font-size:26px; color:white;
+    box-shadow:0 6px 20px rgba(255,94,120,0.28);
+  }
+  .hero h1{margin:0;font-size:22px;letter-spacing:0.2px}
+  .hero p{margin:0;opacity:0.9;font-size:13px}
+
+  /* typing area */
+  .typing {
+    margin-top:14px;
+    min-height:120px;
+    font-size:18px;
+    line-height:1.4;
+    white-space:pre-wrap;
+  }
+  .typing .cursor {
+    display:inline-block;
+    width:12px;
+    height:20px;
+    background:linear-gradient(90deg,#fff,#ffd6e0);
+    margin-left:6px;
+    border-radius:3px;
+    animation: blink 0.9s steps(2, start) infinite;
+    vertical-align:middle;
+  }
+  @keyframes blink{50%{opacity:0}}
+
+  /* slideshow */
+  .slideshow {
+    margin-top:18px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .slide {
+    width:260px; height:160px; border-radius:12px; overflow:hidden;
+    box-shadow:0 6px 24px rgba(0,0,0,0.28); cursor:pointer;
+    transform-origin:center; background:#000;
+    border:3px solid rgba(255,255,255,0.06);
+  }
+  .slide img{width:100%; height:100%; object-fit:cover; display:block}
+  .caption {
+    text-align:center; margin-top:10px; font-size:14px; color:rgba(255,255,255,0.95);
+  }
+
+  /* controls */
+  .controls{
+    margin-top:18px; display:flex; gap:10px; justify-content:center;
+  }
+  .btn{
+    padding:10px 16px; border-radius:999px; border:none; cursor:pointer;
+    background:rgba(255,255,255,0.12); color:white; font-weight:600;
+    box-shadow:0 6px 18px rgba(0,0,0,0.18);
+  }
+  .btn.strong{background:linear-gradient(90deg,var(--accent),#ff98b0)}
+
+  /* love & glowing ending */
+  .ending {
+    margin-top:18px; text-align:center; display:none;
+  }
+  .ending h2{font-family:'Pacifico'; font-size:36px; margin:6px 0}
+  .glow{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#fff,#ffd6e0);
+    color:#ff2a6d; font-weight:800;
+    box-shadow:0 8px 30px rgba(255,90,120,0.36);
+    transform:translateY(0);
+  }
+
+  /* falling hearts canvas overlay */
+  #heartsCanvas{position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none;}
+
+  /* lightbox */
+  .lightbox{
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+    background:rgba(0,0,0,0.75); z-index:9999;
+  }
+  .lightbox img{max-width:90%; max-height:80%; border-radius:12px; box-shadow:0 14px 60px rgba(0,0,0,0.6)}
+
+  /* responsive */
+  @media (max-width:640px){
+    .slide {width:200px;height:120px}
+    .typing{font-size:16px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Background hearts (canvas) -->
+<canvas id="heartsCanvas"></canvas>
+
+<div class="stage">
+  <div class="card" id="mainCard">
+    <div class="hero">
+      <div class="logo">C</div>
+      <div>
+        <h1>Untuk Cei — Happy Birthday!</h1>
+        <p>Surat cinta digital ini dibuat khusus dari bibuubb 💌</p>
+      </div>
+    </div>
+
+    <div class="typing" id="typingArea"></div>
+
+    <div class="slideshow" id="slideshow">
+      <!-- Slides injected by JS -->
+    </div>
+    <div class="caption" id="captionArea"></div>
+
+    <div class="controls">
+      <button class="btn" id="pauseBtn">Pause Slideshow</button>
+      <button class="btn strong" id="surpriseBtn">Klik Untuk Kejutan 🎉</button>
+    </div>
+
+    <div class="ending" id="endingArea">
+      <h2>Selamat Ulang Tahun, Cei!</h2>
+      <div class="glow" id="loveGlow">I ♥ YOU</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Lightbox for full image -->
+<div class="lightbox" id="lightbox">
+  <img id="lightboxImg" src="" alt="Foto besar">
+</div>
+
+<!-- Audio (ganti src dengan file lagu nanti) -->
+<audio id="bgMusic" loop>
+  <source src="lagu.mp3" type="audio/mpeg">
+  <!-- jika mau autoplay di browser modern: user interaction policy may block autoplay with sound.
+       musik akan dicoba diputar saat kejutan muncul; browser mungkin butuh interaksi -->
+</audio>
+
+<!-- Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<script>
+/* ------------- Config: GANTI FOTO & CAPTION DI SINI ------------- 
+   Tambahkan foto di folder yang sama: photo1.jpg, photo2.jpg, ...
+   Ubah teks caption sesuai keinginan.
+*/
+const PHOTOS = [
+  {src: 'photo1.jpg', caption: 'Pertama kali kita ketawa bareng 😆'},
+  {src: 'photo2.jpg', caption: 'Momen kita yang bikin deg-degan 💓'},
+  {src: 'photo3.jpg', caption: 'Kopi & curhat sampai pagi ☕️✨'},
+  {src: 'photo4.jpg', caption: 'Liburan kecil yang tak terlupakan 🌴'},
+  // tambahin sesuai kebutuhan...
+];
+const TYPING_MESSAGES = [
+  "Hai ceiii... 💕\nAda sesuatu istimewa buat kamu hari ini.",
+  "Semua kenangan kita kutaruh di sini—biar kamu selalu inget betapa berharganya ceiii buatku.",
+  "Mungkin kata-kata nggak cukup, tapi semoga ini bisa bikin ceiii senyum terus.\n",
+  "Happy Birthday, sayang. Semoga semua harapanmu terwujud ✨\n",
+  "Klik tombol 'Kejutan' ya untuk lihat foto-foto dan sedikit hadiah manis dari aku 😘"
+];
+/* --------------------------------------------------------------- */
+
+const typingArea = document.getElementById('typingArea');
+const slideshow = document.getElementById('slideshow');
+const captionArea = document.getElementById('captionArea');
+const pauseBtn = document.getElementById('pauseBtn');
+const surpriseBtn = document.getElementById('surpriseBtn');
+const endingArea = document.getElementById('endingArea');
+const loveGlow = document.getElementById('loveGlow');
+const bgMusic = document.getElementById('bgMusic');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+
+// Create slides
+PHOTOS.forEach((p,i)=>{
+  const div = document.createElement('div');
+  div.className = 'slide';
+  div.dataset.index = i;
+  div.innerHTML = `<img src="${p.src}" alt="foto ${i+1}">`;
+  slideshow.appendChild(div);
+
+  div.addEventListener('click', ()=> openLightbox(p.src));
+});
+
+// Lightbox
+function openLightbox(src){
+  lightboxImg.src = src;
+  lightbox.style.display = 'flex';
+}
+lightbox.addEventListener('click', ()=> { lightbox.style.display='none'; });
+
+// Typing effect (simple)
+async function runTyping(){
+  typingArea.textContent = '';
+  for(let m of TYPING_MESSAGES){
+    await typeLine(m, 28); // speed
+    await wait(600);
+  }
+  // After typing finished, reveal slideshow controls
+  surpriseBtn.disabled = false;
+  // auto-start slideshow
+  startSlideshow();
+}
+function typeLine(text, speed=40){
+  return new Promise(resolve=>{
+    let i=0;
+    const cursor = document.createElement('span');
+    cursor.className='cursor';
+    typingArea.appendChild(cursor);
+    const t = setInterval(()=> {
+      if(i < text.length){
+        cursor.insertAdjacentText('beforebegin', text.charAt(i));
+        i++;
+      } else {
+        clearInterval(t);
+        cursor.remove();
+        resolve();
+      }
+    }, speed);
+  });
+}
+function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+// Slideshow logic
+let slideIndex = 0;
+let slideTimer = null;
+let playing = true;
+function showSlide(n){
+  const slides = document.querySelectorAll('.slide');
+  slides.forEach((s,idx)=>{
+    if(idx === n){
+      gsap.to(s, {scale:1.03, duration:0.6, ease:'power2.out'});
+      s.style.zIndex = 5;
+    } else {
+      gsap.to(s, {scale:0.95, duration:0.6, ease:'power2.out'});
+      s.style.zIndex = '';
+    }
+  });
+  captionArea.textContent = PHOTOS[n].caption || '';
+}
+function nextSlide(){
+  slideIndex = (slideIndex + 1) % PHOTOS.length;
+  showSlide(slideIndex);
+}
+function startSlideshow(){
+  showSlide(slideIndex);
+  slideTimer = setInterval(()=> {
+    nextSlide();
+  }, 3500);
+  playing = true;
+  pauseBtn.textContent = 'Pause Slideshow';
+}
+function stopSlideshow(){
+  clearInterval(slideTimer);
+  playing = false;
+  pauseBtn.textContent = 'Resume Slideshow';
+}
+
+// Pause button
+pauseBtn.addEventListener('click', ()=>{
+  if(playing) stopSlideshow(); else startSlideshow();
+});
+
+// Surprise button — triggers confetti, music, photo sequence, ending glow
+surpriseBtn.addEventListener('click', async ()=>{
+  surpriseBtn.disabled = true;
+  // play music (may be blocked by browser until user interacts) - but here user clicked
+  try{ await bgMusic.play(); }catch(e){ /* ignore */ }
+
+  // big confetti
+  burstConfettiBig();
+  // animate card (zoom/pulse)
+  gsap.fromTo('#mainCard',{scale:0.98},{scale:1.02,duration:0.7,yoyo:true,repeat:1,ease:'power1.inOut'});
+
+  // reveal slideshow photos in sequence with nice animations
+  const slides = document.querySelectorAll('.slide');
+  for(let i=0;i<slides.length;i++){
+    const s = slides[i];
+    gsap.fromTo(s, {y:40,opacity:0,scale:0.9},{y:0,opacity:1,scale:1,duration:0.7,delay: i*0.25, ease:'back.out(1.4)'});
+    showSlide(i);
+    await wait(700);
+    burstConfettiMini();
+  }
+
+  // show ending
+  endingArea.style.display = 'block';
+  gsap.fromTo(endingArea, {opacity:0,y:20},{opacity:1,y:0,duration:0.9, ease:'power2.out'});
+
+  // glowing pulsing I Love You
+  gsap.fromTo('#loveGlow', {scale:0.9, boxShadow:'0 0 0 rgba(0,0,0,0)'}, {scale:1, boxShadow:'0 20px 50px rgba(255,90,120,0.28)', duration:1.2, yoyo:true, repeat:-1, ease:'sine.inOut'});
+
+  // final confetti rain
+  burstConfettiBig();
+});
+
+// Confetti helpers
+function burstConfettiBig(){
+  confetti({
+    particleCount: 160,
+    spread: 100,
+    origin: { y: 0.6 }
+  });
+}
+function burstConfettiMini(){
+  confetti({
+    particleCount: 30,
+    spread: 60,
+    origin: { y: 0.6 }
+  });
+}
+
+/* --------------- Falling hearts (canvas) --------------- */
+const canvas = document.getElementById('heartsCanvas');
+const ctx = canvas.getContext('2d');
+let W = canvas.width = window.innerWidth;
+let H = canvas.height = window.innerHeight;
+window.addEventListener('resize', ()=> { W = canvas.width = innerWidth; H = canvas.height = innerHeight; });
+
+class Heart{
+  constructor(){
+    this.x = Math.random()*W;
+    this.y = -20 - Math.random()*200;
+    this.size = 8 + Math.random()*18;
+    this.speed = 0.6 + Math.random()*1.2;
+    this.swing = Math.random()*1.5;
+    this.opacity = 0.6 + Math.random()*0.4;
+    this.color = `rgba(255,${100+Math.floor(Math.random()*120)},${140+Math.floor(Math.random()*60)},${this.opacity})`;
+    this.angle = Math.random()*Math.PI*2;
+  }
+  draw(){
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(Math.sin(this.angle)*0.3);
+    // draw heart shape
+    ctx.beginPath();
+    let s = this.size/16;
+    ctx.moveTo(0, -12*s);
+    ctx.bezierCurveTo(14*s, -28*s, 34*s, -16*s, 0, 14*s);
+    ctx.bezierCurveTo(-34*s, -16*s, -14*s, -28*s, 0, -12*s);
+    ctx.closePath();
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    ctx.restore();
+  }
+  update(){
+    this.y += this.speed;
+    this.x += Math.sin(this.y*0.01)*this.swing;
+    this.angle += 0.02;
+  }
+}
+let hearts = [];
+function spawnHearts(){
+  if(hearts.length < 120 && Math.random() < 0.65){
+    hearts.push(new Heart());
+  }
+}
+function clearHearts(){
+  hearts = hearts.filter(h=>h.y < H + 60);
+}
+function loopHearts(){
+  spawnHearts();
+  ctx.clearRect(0,0,W,H);
+  hearts.forEach(h=>{ h.update(); h.draw(); });
+  clearHearts();
+  requestAnimationFrame(loopHearts);
+}
+loopHearts();
+
+/* ----------------- Start typing on load ------------------ */
+surpriseBtn.disabled = true;
+runTyping();
+
+/* Optional: keyboard shortcut 'K' to trigger surprise (for testing) */
+document.addEventListener('keydown', (e)=>{
+  if(e.key.toLowerCase()==='k'){
+    surpriseBtn.click();
+  }
+});
+</script>
+
+</body>
+</html>
